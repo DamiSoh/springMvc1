@@ -1,7 +1,5 @@
 package hello.servlet.domain.member;
 
-import hello.servlet.basic.domain.member.Member;
-import hello.servlet.basic.domain.member.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,7 @@ class MemberRepositoryTest {
     @Test
     void save(){
         //given
-        Member member = new Member("TEST Park", 29);
+        Member member = new Member("TEST", 29);
         //when
         Member savedMember = memberRepository.save(member);
         //then
