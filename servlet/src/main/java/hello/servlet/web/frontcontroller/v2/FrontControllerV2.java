@@ -1,6 +1,9 @@
 package hello.servlet.web.frontcontroller.v2;
 
 import hello.servlet.web.frontcontroller.MyView;
+import hello.servlet.web.frontcontroller.v2.controller.MemberFormControllerV2;
+import hello.servlet.web.frontcontroller.v2.controller.MemberListControllerV2;
+import hello.servlet.web.frontcontroller.v2.controller.MemberServiceControllerV2;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +19,19 @@ public class FrontControllerV2 extends HttpServlet {
 
     private Map<String, ControllerV2> controllerV2Map = new HashMap<>();
 
+    public FrontControllerV2() {
+        controllerV2Map.put("/front-controller/v2/members/new-form", new MemberFormControllerV2());
+        controllerV2Map.put("/front-controller/v2/members/save",     new MemberServiceControllerV2());
+        controllerV2Map.put("/front-controller/v2/members",          new MemberListControllerV2());
+    }
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String requestURI = request.getRequestURI();
+
         ControllerV2 controllerV2 = controllerV2Map.get(requestURI);
+
         if(controllerV2 == null){
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return ;
